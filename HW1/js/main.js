@@ -67,10 +67,14 @@ function isPolindrom(str) {
   res2.reverse();
 
   for (let i = 0; i < res1.length; i++) {
-    return res1[i] === res2[i] ? console.log('Полиндром') : console.log('Не полиндром');
+    if (res1[i] === res2[i]) {
+      console.log('Полиндром');
+    } else {
+      console.log('Не полиндром');
+    }
+    return true;
   }
 }
-
 
 function getMultiplyTable() {
   const { body } = document;
@@ -99,5 +103,5 @@ function getMultiplyTable() {
 }
 // makeTest();
 // getData();
-isPolindrom('rooor');
+isPolindrom('footr');
 // getMultiplyTable();
