@@ -29,13 +29,13 @@ function getData() {
   let age = +prompt('Введите ваш возраст', '18');
   const sex = confirm('Ваш пол - мужской?');
 
-  if (surname === '') {
+  if (surname === '' || surname === null) {
     surname = 'Иванов';
   }
-  if (name === '') {
+  if (name === '' || name === null) {
     name = 'Иван';
   }
-  if (patronymic === '') {
+  if (patronymic === '' || patronymic === null) {
     patronymic = 'Иванович';
   }
   if (age === 0) {
@@ -102,6 +102,6 @@ function getMultiplyTable() {
   body.append(table);
 }
 // makeTest();
-// getData();
-isPolindrom('footr');
+getData();
+//isPolindrom('footr');
 // getMultiplyTable();
