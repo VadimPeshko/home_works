@@ -71,9 +71,10 @@ function isPolindrom(str) {
       console.log('Полиндром');
     } else {
       console.log('Не полиндром');
+      return false;
     }
-    return true;
   }
+  return true;
 }
 
 function getMultiplyTable() {
@@ -101,7 +102,7 @@ function getMultiplyTable() {
 
   body.append(table);
 }
-// makeTest();
+makeTest();
 getData();
-//isPolindrom('footr');
-// getMultiplyTable();
+isPolindrom('ffooff');
+getMultiplyTable();
