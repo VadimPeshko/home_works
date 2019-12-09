@@ -2,16 +2,13 @@
 // eslint-disable-next-line no-unused-vars
 function positiveSum(arr) {
   let sum = 0;
-  let flag = false;
   if (arr.length === 0) {
     return 0;
   }
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] < 0) {
-      flag = true;
     } else {
       sum += arr[i];
-      flag = false;
     }
   }
   return sum;
@@ -19,13 +16,7 @@ function positiveSum(arr) {
 
 // eslint-disable-next-line no-unused-vars
 function evenOrOdd(numb) {
-  let result = '';
-  if (numb % 2 === 0) {
-    return 'Even';
-  } else {
-    result = 'Odd';
-  }
-  return result;
+  return numb % 2 === 0 ? 'Even' : 'Odd';
 }
 
 // eslint-disable-next-line no-unused-vars
