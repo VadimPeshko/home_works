@@ -11,7 +11,7 @@ function positiveSum(arr) {
       sum += arr[i];
     }
   }
-  return sum;
+  return mum;
 }
 
 // eslint-disable-next-line no-unused-vars
