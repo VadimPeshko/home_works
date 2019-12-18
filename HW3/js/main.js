@@ -1,14 +1,17 @@
 const title = document.querySelector('.todo-form__title');
 const body = document.querySelector('.todo-form__body');
 const btn = document.querySelector('.todo-form__btn');
-const notesList = [];
+let notesList = [];
 
 const createdObj = (description, text) => ({
   title: description.value,
   body: text.value,
 });
 
-const createdNotes = () => notesList.push(createdObj(title, body));
+const createdNotes = () => {
+  notesList.push(createdObj(title, body));
+  localStorage.setItem('notes', JSON.stringify(notesList));
+};
 
 const renderError = () => {
   const error = `
@@ -56,6 +59,7 @@ const removeNotes = () => {
     notesList.forEach((element, i) => {
       if (element.title === even.target.innerHTML) {
         notesList.splice(i, 1);
+        localStorage.setItem('notes', JSON.stringify(notesList));
       }
       showNotes();
     });
@@ -74,6 +78,11 @@ const clearInput = () => {
   body.value = '';
 };
 
+if (localStorage.getItem('notes')) {
+  notesList = JSON.parse(localStorage.getItem('notes'));
+  showNotes();
+  removeNotes();
+}
 
 btn.addEventListener('click', (even) => {
   even.preventDefault();
