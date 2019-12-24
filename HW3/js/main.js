@@ -1,99 +1,118 @@
-const title = document.querySelector('.todo-form__title');
-const body = document.querySelector('.todo-form__body');
-const btn = document.querySelector('.todo-form__btn');
-let notesList = [];
+const Notes = ((function () {
+  const NOTES = 'notes';
 
-const createdObj = (description, text) => ({
-  title: description.value,
-  body: text.value,
-});
-
-const createdNotes = () => {
-  notesList.push(createdObj(title, body));
-  localStorage.setItem('notes', JSON.stringify(notesList));
-};
-
-const renderError = () => {
-  const error = `
-    <div class="alert alert-danger" role="alert">Введите описание и текст</div>`;
-  body.insertAdjacentHTML('afterend', error);
-};
-
-const renderWarning = () => {
-  const error = `
-    <div class="alert alert-warning" role="alert">Заметки с одинаковым описанием будут перезаписанны</div>`;
-  body.insertAdjacentHTML('afterend', error);
-};
-
-const checkTitle = () => {
-  notesList.forEach((element, i) => {
-    if (element.title === title.value) {
-      notesList.splice(i, 1);
-      renderWarning();
+  const initNotes = () => {
+    if (localStorage.getItem(NOTES)) {
+      return JSON.parse(localStorage.getItem(NOTES));
     }
-  });
-};
 
-const showNotes = () => {
-  const ul = document.querySelector('.todo-notes ul');
-  let notes = '';
+    return [];
+  };
 
-  if (notesList.length === 0) {
-    ul.innerHTML = '';
-  }
+  const notes = initNotes();
+  const saveNotes = (desc, text) => {
+    const not = {
+      title: desc,
+      body: text,
+    };
+    notes.push(not);
+    localStorage.setItem(NOTES, JSON.stringify(notes));
+  };
 
-  notesList.forEach((element) => {
-    notes += `<li class="todo-notes__list">
-    <h4>${element.title}</h4>
-    <P>${element.body}</P>
-    </li>`;
-    ul.innerHTML = notes;
-  });
-};
-
-const removeNotes = () => {
-  const todoNotes = document.querySelector('.todo-notes__ul');
-
-  todoNotes.addEventListener('contextmenu', (even) => {
-    even.preventDefault();
-    notesList.forEach((element, i) => {
-      if (element.title === even.target.innerHTML) {
-        notesList.splice(i, 1);
-        localStorage.setItem('notes', JSON.stringify(notesList));
+  const addNotes = (title, body) => {
+    for (let i = 0; i < notes.length; i++) {
+      if (notes[i].title === title) {
+        return {
+          done: false,
+          error: 'Такая заметка уже существует',
+        };
       }
-      showNotes();
+    }
+    saveNotes(...[title, body]);
+    return {
+      done: true,
+    };
+  };
+
+  const removeNotes = (title) => {
+    for (let i = 0; i < notes.length; i++) {
+      if (notes[i].title === title) {
+        notes.splice(i, 1);
+        localStorage.setItem(NOTES, JSON.stringify(notes));
+        return { done: true };
+      }
+    }
+    return {
+      done: false,
+      error: 'Элемент не существует',
+    };
+  };
+
+  return {
+    getNotes() {
+      return notes;
+    },
+    addItem(item1, item2) {
+      return addNotes(item1, item2);
+    },
+    removeItem(item) {
+      return removeNotes(item);
+    },
+  };
+})());
+
+const FRONT = {
+  titleValue: document.querySelector('.todo-form__title'),
+  bodyValue: document.querySelector('.todo-form__body'),
+  btn: document.querySelector('.todo-form__btn'),
+  btnRemove: document.querySelector('.todo-form__btn-remove'),
+  ul: document.querySelector('.todo-notes__ul'),
+  warning: document.querySelector('#warning'),
+
+  render() {
+    this.clearInput();
+    this.clearNotes();
+    this.warning.classList.remove('show');
+    Notes.getNotes().forEach((element) => {
+      const li = document.createElement('li');
+      li.className = 'todo-notes__list';
+      li.innerHTML = `<h4>${element.title}</h4><p>${element.body}</p>`;
+      this.ul.appendChild(li);
     });
-  });
+  },
+  clearNotes() {
+    this.ul.innerText = '';
+  },
+  clearInput() {
+    this.titleValue.value = '';
+    this.bodyValue.value = '';
+  },
+  checkResult(result) {
+    if (result.done) {
+      FRONT.render();
+      this.warning.classList.remove('show');
+    } else {
+      this.warning.classList.add('show');
+      FRONT.warning.innerText = result.error;
+    }
+  },
 };
 
-const removeError = () => {
-  const alert = document.querySelectorAll('.alert');
-  alert.forEach((element) => {
-    element.remove();
-  });
-};
-
-const clearInput = () => {
-  title.value = '';
-  body.value = '';
-};
-
-if (localStorage.getItem('notes')) {
-  notesList = JSON.parse(localStorage.getItem('notes'));
-  showNotes();
-  removeNotes();
-}
-
-btn.addEventListener('click', (even) => {
-  even.preventDefault();
-  removeError();
-  if (title.value.trim() === '' || body.value.trim() === '') {
-    renderError();
+FRONT.btn.addEventListener('click', (event) => {
+  event.preventDefault();
+  if (FRONT.titleValue.value === '') {
+    FRONT.warning.innerText = 'Введите что-нибудь!';
+    this.warning.classList.add('show');
   } else {
-    checkTitle();
-    createdNotes();
-    clearInput();
-    showNotes();
-    removeNotes();
+    const result = Notes.addItem(FRONT.titleValue.value, FRONT.bodyValue.value);
+    FRONT.checkResult(result);
   }
 });
+
+FRONT.btnRemove.addEventListener('click', (event) => {
+  event.preventDefault();
+  const result = Notes.removeItem(FRONT.titleValue.value);
+  FRONT.checkResult(result);
+});
+
+FRONT.render();

@@ -7,6 +7,16 @@ body {
   color: $text-color;
 }
 
+.error {
+  display: none;
+}
+
+.show {
+  display: block;
+  color: $text-color;
+  margin-bottom: 10px;
+}
+
 .todo {
   margin-top: 50px;
   &-form {
@@ -24,6 +34,10 @@ body {
       resize: none;
     }
     &__btn {
+      width: 100%;
+      padding: 10px;
+    }
+    &__btn-remove {
       width: 100%;
       padding: 10px;
     }

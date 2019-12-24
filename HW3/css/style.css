@@ -8,6 +8,16 @@ body {
   color: #fff;
 }
 
+.error {
+  display: none;
+}
+
+.show {
+  display: block;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
 .todo {
   margin-top: 50px;
 }
@@ -31,6 +41,11 @@ body {
 }
 
 .todo-form__btn {
+  width: 100%;
+  padding: 10px;
+}
+
+.todo-form__btn-remove {
   width: 100%;
   padding: 10px;
 }
