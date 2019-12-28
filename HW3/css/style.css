@@ -1,0 +1,72 @@
+body {
+  background: #00B4DB;
+  /* fallback for old browsers */
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-gradient(linear, left top, right top, from(#0083B0), to(#00B4DB));
+  background: linear-gradient(to right, #0083B0, #00B4DB);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #fff;
+}
+
+.error {
+  display: none;
+}
+
+.show {
+  display: block;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.todo {
+  margin-top: 50px;
+}
+
+.todo-form {
+  width: 100%;
+}
+
+.todo-form__title {
+  width: 100%;
+  padding: 10px;
+}
+
+.todo-form__body {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  resize: none;
+}
+
+.todo-form__btn {
+  width: 100%;
+  padding: 10px;
+}
+
+.todo-form__btn-remove {
+  width: 100%;
+  padding: 10px;
+}
+
+.todo-notes {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.todo-notes ul {
+  padding: 0;
+}
+
+.todo-notes__list {
+  list-style-type: none;
+  position: relative;
+  border-bottom: 1px solid #fff;
+  padding: 10px;
+}
+
+.todo-notes__list p {
+  overflow-x: hidden;
+}
+/*# sourceMappingURL=style.css.map */
