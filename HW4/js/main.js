@@ -16,24 +16,22 @@ const isBirthday = () => {
 
 // console.log(isBirthday());
 
-const isFilter = () => {
-  const mat = ['сука', 'пиздец', 'блять', 'лох', 'мудак'];
+const isFilter = (arr) => {
+  // const mat = ['сука', 'пиздец', 'блять', 'лох', 'мудак'];
   let str = prompt('Введите строку', 'Строка');
-  const flag = mat[0];
 
   if (str === null) {
     return false;
   }
 
-  for (let i = 0; i < mat.length; i++) {
-    str = str.split(mat[i]).join(flag);
+  for (let i = 0; i < arr.length; i++) {
+    str = str.split(arr[i]).join('***');
   }
 
-  str = str.split(flag).join('***');
   return str;
 };
 
-// console.log(isFilter());
+console.log(isFilter(['сука', 'пиздец', 'блять', 'лох', 'мудак']));
 
 const Users = [
   { id: '22', name: 'Vadim', dob: '1991-11-01' },
@@ -120,6 +118,6 @@ const usersSort = ((function () {
   };
 })());
 
-console.log(usersSort.getId(Users, 'id', 'desc'));
-console.log(usersSort.getName(Users2, 'name', 'asc'));
-console.log(usersSort.getDob(Users3, 'dob', 'asc'));
+// console.log(usersSort.getId(Users, 'id', 'desc'));
+// console.log(usersSort.getName(Users2, 'name', 'asc'));
+// console.log(usersSort.getDob(Users3, 'dob', 'asc'));
