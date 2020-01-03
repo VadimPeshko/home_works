@@ -1,4 +1,4 @@
-function Timer(renderEl, limit = 30, msg) {
+function Timer(renderEl, limit = 30, msg, timer) {
   let value = limit;
   const text = msg;
   let isPause = false;
@@ -7,12 +7,18 @@ function Timer(renderEl, limit = 30, msg) {
 
   this.start = function () {
     intervalId = setInterval(() => {
-      if (value === 0) {
+      if (value <= 0) {
         clearInterval(intervalId);
       }
       el.innerHTML = `${text} ${value}`;
       value -= 1;
     }, 1000);
+  };
+
+  this.time = function () {
+    setTimeout(() => {
+      this.start();
+    }, timer);
   };
 
   this.pause = function () {
@@ -30,27 +36,18 @@ function Timer(renderEl, limit = 30, msg) {
 const alert = document.querySelector('.alert');
 const startBtn = document.querySelector('.btn-start');
 const endBtn = document.querySelector('.btn-end');
-const inputGroup = document.querySelector('.input-group');
 const userInput = document.querySelector('.form-control');
-inputGroup.style.display = 'none';
-const timer = new Timer(alert, 5, 'Измерение начнется через');
-const timerTwo = new Timer(alert, 15, 'Измерение');
 
 const calcBpm = (val) => {
   alert.textContent = `Ваш пульс ${parseInt(val) * 4} ударов в минуту`;
   userInput.value = '';
-  inputGroup.style.display = 'none';
 };
 
 startBtn.addEventListener('click', () => {
+  const timer = new Timer(alert, 5, 'Измерение начнется через');
+  const timerTwo = new Timer(alert, 15, 'Измерение', '5000');
   timer.start();
-  startBtn.style.display = 'none';
-  setTimeout(() => {
-    timerTwo.start();
-    setTimeout(() => {
-      inputGroup.style.display = 'flex';
-    }, 15000);
-  }, 5000);
+  timerTwo.time();
 });
 
 endBtn.addEventListener('click', () => {
