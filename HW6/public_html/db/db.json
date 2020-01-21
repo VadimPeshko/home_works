@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "text": "vadim",
+      "author": "some etxt",
+      "textarea": "wewewewew",
+      "id": 1
+    },
+    {
+      "text": "alex",
+      "author": "alez",
+      "textarea": "3333334444",
+      "id": 4
+    },
+    {
+      "text": "auto",
+      "author": "aaaaaa",
+      "textarea": "lksdlfkdlkfd",
+      "id": 5
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  },
+  "users": [],
+  "cars": []
+}
