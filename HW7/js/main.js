@@ -1,15 +1,15 @@
 export class DARKSKY {
   constructor() {
-    this.api = 'https://api.darksky.net/forecast/';
-    this.key = '690796d626468e9b52a179e93f0200c9/';
-    this.proxy = 'https://cors-anywhere.herokuapp.com/';
+    this.api = 'https://api.darksky.net/forecast';
+    this.key = '690796d626468e9b52a179e93f0200c9';
+    this.proxy = 'https://cors-anywhere.herokuapp.com';
     this.cardWrapper = document.querySelector('.card-wrapper');
     this.div = document.createElement('div');
     this.template = '';
   }
 
   getResource = (coord) => {
-    fetch(`${this.proxy}${this.api}${this.key}${coord}?units=si`)
+    fetch(`${this.proxy}/${this.api}/${this.key}/${coord}?units=si`)
       .then((resp) => {
         if (resp.ok) {
           return resp.json();
